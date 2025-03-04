@@ -48,6 +48,7 @@ function loadingAnimation() {
     tl.from(".hero h2, .hero h3", {
         y: 120,
         stagger: 0.2,
+        opacity: 0
     });
 }
 loadingAnimation();
@@ -64,3 +65,6 @@ function cursorAnimation() {
     Shery.makeMagnet("#nav-part2 h4");
 }
 cursorAnimation();
+
+//? getYear:
+document.querySelector("#year").textContent = new Date().getFullYear();
