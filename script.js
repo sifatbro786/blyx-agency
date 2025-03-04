@@ -58,7 +58,7 @@ function cursorAnimation() {
         gsap.to("#crsr", {
             left: dets.x,
             top: dets.y,
-            duration: 0.8,
+            duration: 0.2,
         });
     });
     Shery.makeMagnet("#nav-part2 h4");
