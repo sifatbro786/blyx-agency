@@ -1,37 +1,25 @@
 //? locomotive:
-function scrollAnimation() {
+function locomotiveAnimation() {
     gsap.registerPlugin(ScrollTrigger);
 
     const locoScroll = new LocomotiveScroll({
         el: document.querySelector("#main"),
         smooth: true,
-        smoothMobile: true, // Ensure smooth scrolling on mobile
     });
-
     locoScroll.on("scroll", ScrollTrigger.update);
-
     ScrollTrigger.scrollerProxy("#main", {
         scrollTop(value) {
             return arguments.length
-                ? locoScroll.scrollTo(value, { duration: 0, disableLerp: true })
+                ? locoScroll.scrollTo(value, 0, 0)
                 : locoScroll.scroll.instance.scroll.y;
         },
         getBoundingClientRect() {
-            return {
-                top: 0,
-                left: 0,
-                width: window.innerWidth,
-                height: window.innerHeight,
-            };
+            return { top: 0, left: 0, width: window.innerWidth, height: window.innerHeight };
         },
         pinType: document.querySelector("#main").style.transform ? "transform" : "fixed",
     });
-
-    // Ensure Locomotive Scroll and ScrollTrigger are in sync
     ScrollTrigger.addEventListener("refresh", () => locoScroll.update());
-    setTimeout(() => {
-        ScrollTrigger.refresh();
-    }, 100);
+    ScrollTrigger.refresh();
 }
 
 //? loader:
@@ -56,7 +44,7 @@ function loadingAnimation() {
                 } else {
                     h5Timer.innerHTML = grow;
                 }
-            }, 33);
+            }, 40);
         },
     });
     tl.to(".line h2", {
@@ -66,14 +54,13 @@ function loadingAnimation() {
     tl.to("#loader", {
         opacity: 0,
         duration: 0.2,
-        delay: 0,
+        delay: 4,
     });
     tl.from("#page1", {
         y: 1600,
         backgroundColor: "#000",
         delay: 0.2,
         duration: 1,
-        // opacity: 0,
         ease: Power4,
     });
     tl.to("#loader", {
@@ -129,11 +116,13 @@ function cursorAnimation() {
 
     let flag = 0;
     videoContainer.addEventListener("click", () => {
-        if(flag == 0) {
+        if (flag == 0) {
             video.play();
             video.style.opacity = 1;
-    
-            document.querySelector("#video-cursor").innerHTML = `<i class="ri-pause-mini-fill"></i>`;
+
+            document.querySelector(
+                "#video-cursor",
+            ).innerHTML = `<i class="ri-pause-mini-fill"></i>`;
             gsap.to("#video-cursor", {
                 scale: 0.5,
             });
@@ -141,7 +130,7 @@ function cursorAnimation() {
         } else {
             video.pause();
             video.style.opacity = 0;
-    
+
             document.querySelector("#video-cursor").innerHTML = `<i class="ri-play-mini-fill"></i>`;
             gsap.to("#video-cursor", {
                 scale: 1,
@@ -153,7 +142,7 @@ function cursorAnimation() {
 
 //? shery animation:
 function sheryAnimation() {
-    Shery.imageEffect(".image-div", {
+    Shery.imageEffect(".image-box", {
         style: 5,
         config: {
             a: { value: 0.69, range: [0, 30] },
@@ -190,10 +179,163 @@ function sheryAnimation() {
     });
 }
 
+//? flagAnimation:
+function flagAnimation() {
+    document.addEventListener("mousemove", (dets) => {
+        gsap.to("#flag", {
+            x: dets.x,
+            y: dets.y,
+        });
+    });
+
+    document.querySelector("#hero3").addEventListener("mouseenter", () => {
+        gsap.to("#flag", {
+            opacity: 1,
+        });
+    });
+    document.querySelector("#hero3").addEventListener("mouseleave", () => {
+        gsap.to("#flag", {
+            opacity: 0,
+        });
+    });
+}
+
+//? scrollTriggerAnimation:
+function scrollTriggerAnimation() {
+    gsap.from("#page3-content h1", {
+        y: 50,
+        delay: 0.3,
+        opacity: 0,
+        duration: 1,
+        scrollTrigger: {
+            trigger: "#page3-content h1",
+            scroller: "#main",
+            start: "top 100%",
+        },
+    });
+    gsap.from("#page3-content .underline2", {
+        width: "0%",
+        delay: 0.3,
+        duration: 2,
+        scrollTrigger: {
+            trigger: "#page3-content .underline2",
+            scroller: "#main",
+            start: "top 100%",
+        },
+    });
+    gsap.from("#image-div-container .page3-circle1", {
+        y: "-200",
+        delay: 0.3,
+        duration: 1,
+        scrollTrigger: {
+            trigger: "#image-div-container",
+            scroller: "#main",
+            start: "top 100%",
+        },
+    });
+    gsap.from("#page4-content h1", {
+        y: 50,
+        delay: 0.3,
+        opacity: 0,
+        duration: 1,
+        scrollTrigger: {
+            trigger: "#page4-content",
+            scroller: "#main",
+            start: "top 100%",
+        },
+    });
+    gsap.from("#page4-content .underline", {
+        width: "0%",
+        delay: 0.8,
+        duration: 2,
+        scrollTrigger: {
+            trigger: "#page4-content",
+            scroller: "#main",
+            start: "top 100%",
+        },
+    });
+    gsap.from("#page4-content .a1", {
+        width: "0%",
+        delay: 0.5,
+        duration: 2,
+        scrollTrigger: {
+            trigger: "#page4-content",
+            scroller: "#main",
+            start: "top 100%",
+        },
+    });
+    gsap.from("#footer h1", {
+        y: 50,
+        delay: 0.3,
+        opacity: 0,
+        duration: 1,
+        scrollTrigger: {
+            trigger: "#footer",
+            scroller: "#main",
+            start: "top 100%",
+        },
+    });
+    gsap.from("#footer .b1", {
+        width: "0%",
+        delay: 0.5,
+        duration: 2,
+        scrollTrigger: {
+            trigger: "#footer",
+            scroller: "#main",
+            start: "top 100%",
+        },
+    });
+    gsap.from("#footer .underline3", {
+        width: "0%",
+        delay: 0.5,
+        duration: 2,
+        scrollTrigger: {
+            trigger: "#footer",
+            scroller: "#main",
+            start: "top 100%",
+        },
+    });
+    gsap.from("#footer #footer-div .box h6", {
+        y: -30,
+        opacity: 0,
+        delay: 0.8,
+        duration: 1,
+        scrollTrigger: {
+            trigger: "#footer",
+            scroller: "#main",
+            start: "top 100%",
+        },
+    });
+    gsap.from("#footer #footer-div .box h5", {
+        y: 30,
+        opacity: 0,
+        delay: 1,
+        duration: 1,
+        stagger: 0.1,
+        scrollTrigger: {
+            trigger: "#footer",
+            scroller: "#main",
+            start: "top 100%",
+        },
+    });
+    gsap.from("#footer p", {
+        opacity: 0,
+        delay: 1,
+        duration: 2,
+        scrollTrigger: {
+            trigger: "#footer",
+            scroller: "#main",
+            start: "top 100%",
+        },
+    });
+}
+
 //? getYear:
 document.querySelector("#year").textContent = new Date().getFullYear();
 
 loadingAnimation();
 cursorAnimation();
-scrollAnimation();
+locomotiveAnimation();
 sheryAnimation();
+flagAnimation();
+scrollTriggerAnimation();
